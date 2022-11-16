@@ -75,7 +75,7 @@ Shader "Unlit/OutlineShader" //most of this shader is from the tutorial by Ronja
 					//sample directions
 					//this controls the directionality of the outline, ensuring it comes off the sprite in eight directions
 					//I added a sin and time multiplication here to create pulsating effect
-					#define DIV_SQRT_2 0.70710678118*sin(_Time.y)*5
+					#define DIV_SQRT_2 0.70710678118*sin(_Time.y)*7
 					float2 directions[8] = { float2(1, 0), float2(0, 1), float2(-1, 0), float2(0, -1),
 					  float2(DIV_SQRT_2, DIV_SQRT_2), float2(-DIV_SQRT_2, DIV_SQRT_2),
 					  float2(-DIV_SQRT_2, -DIV_SQRT_2), float2(DIV_SQRT_2, -DIV_SQRT_2) };
@@ -89,8 +89,8 @@ Shader "Unlit/OutlineShader" //most of this shader is from the tutorial by Ronja
 
 					//apply border
 					col.rgb = lerp(_OutlineColor.rgb, col.rgb, col.a);
-					//I added the same calculations here to the alpha to add a second layer of pulsation to the color and speed
-					col.a = max(col.a, (maxAlpha * sin(_Time.y) * 5));
+					//I added a similar calculation here to the alpha to create the shiny/emmissive effect on the color and extend the period of the pulsation
+					col.a = max(col.a, (maxAlpha* cos(_Time.y) * 3));
 
 					return col;
 				}
